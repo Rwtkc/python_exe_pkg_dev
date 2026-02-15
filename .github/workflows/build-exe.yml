@@ -1,10 +1,10 @@
 name: Build Windows EXE
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
@@ -25,12 +25,12 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build EXE with PyInstaller
+      - name: Build EXE
         run: |
-          pyinstaller --noconfirm --clean --onefile --name hello-exe main.py
+          pyinstaller --noconfirm --clean --onefile --windowed --name txt_curve_viewer main.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hello-exe-windows
-          path: dist/hello-exe.exe
+          name: txt-curve-viewer-windows
+          path: dist/txt_curve_viewer.exe

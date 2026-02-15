@@ -1,0 +1,12 @@
+# Sample data for TXT Preview & Curve Plot
+# Format: x y
+0 1.2
+1 2.1
+2 3.4
+3 3.0
+4 4.2
+5 5.1
+6 5.8
+7 6.5
+8 7.3
+9 8.0

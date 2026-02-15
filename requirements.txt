@@ -1,1 +1,1 @@
-# Keep empty for this minimal test project.
+matplotlib==3.10.0
