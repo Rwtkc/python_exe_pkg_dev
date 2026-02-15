@@ -26,11 +26,14 @@ jobs:
           pip install pyinstaller
 
       - name: Install UPX
-        run: choco install upx -y
+        uses: crazy-max/ghaction-upx@v3
+        with:
+          install-only: true
 
       - name: Build app (onedir + UPX)
         shell: pwsh
         run: |
+          upx --version
           $upxPath = (Get-Command upx).Source | Split-Path
           pyinstaller --noconfirm --clean --onedir --windowed --name txt_curve_viewer --upx-dir "$upxPath" main.py
 
