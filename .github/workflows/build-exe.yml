@@ -25,12 +25,22 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build EXE
+      - name: Install UPX
+        run: choco install upx -y
+
+      - name: Build app (onedir + UPX)
+        shell: pwsh
         run: |
-          pyinstaller --noconfirm --clean --onefile --windowed --name txt_curve_viewer main.py
+          $upxPath = (Get-Command upx).Source | Split-Path
+          pyinstaller --noconfirm --clean --onedir --windowed --name txt_curve_viewer --upx-dir "$upxPath" main.py
+
+      - name: Zip output
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist/txt_curve_viewer/* -DestinationPath dist/txt_curve_viewer-windows.zip -Force
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: txt-curve-viewer-windows
-          path: dist/txt_curve_viewer.exe
+          path: dist/txt_curve_viewer-windows.zip
